@@ -1,1 +1,1 @@
-# tasks_ffg
+# Тестовое задание Finstar
