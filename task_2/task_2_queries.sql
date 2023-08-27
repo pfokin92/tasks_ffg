@@ -1,4 +1,3 @@
-/* Конвертация по дням*/
 use FFG
 select day_all, 
 all_count,
@@ -27,10 +26,6 @@ group by rep_date) is_comp_status
 on is_comp_status.day_comp=all_status.day_all
 order by day_all
 
-
-/* Сравнение количества up_stage по дням 
-Большое измение 20.05-22.05 в Bank Verification(снижение) и 20.05-22.05 Personal Details(повышение)  is_completed=1
-*/
 select day_17.up_stage, count_17, count_18,count_19,count_20,count_21,count_22,count_23, count_24, count_25
 from (select up_stage, count(page_status) as count_17 from task2
 where DAY(rep_date)=17 and is_completed=1
@@ -77,10 +72,6 @@ group by up_stage) day_25
 on day_25.up_stage=day_17.up_stage
 
 
-
-/* Сравнение количества up_stage по дням 
-Большое измение 20.05-22.05 в Bank Verification(снижение) и 20.05-22.05 Personal Details(повышение)  is_completed=0
-*/
 select day_17.up_stage, count_17, count_18,count_19,count_20,count_21,count_22,count_23, count_24, count_25
 from (select up_stage, count(page_status) as count_17 from task2
 where DAY(rep_date)=17 and is_completed=0
