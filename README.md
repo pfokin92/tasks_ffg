@@ -56,17 +56,123 @@ order by day_all
 | 17 | 18211 | 12852 | 71% | 3368 | 26% |
 | 18 | 18541 | 13017 | 70% | 3502 | 27% |
 | 19 | 16611 | 10724 | 65% | 2842 | 27% |
-| 20 | 15128 | 4059 | 27% | 930 | 23% |
-| 21 | 7834 | 2325 | 30% | 502 | 22% |
-| 22 | 6845 | 2326 | 34% | 466 | 20% |
+| **20** | 15128 | 4059 | **27%** | 930 | 23% |
+| **21** | 7834 | 2325 | **30%** | 502 | 22% |
+| **22** | 6845 | 2326 | **34%** | 466 | 20% |
 | 23 | 7464 | 5350 | 72% | 1390 | 26% |
 | 24 | 16341 | 11938 | 73% | 2277 | 19% |
 | 25 | 14608 | 10342 | 71% | 2169 | 21% |
 
-В этой таблице мы видим что конверсия значительно снизилась для заявок со статусом "is_completed", но при этом конверсия поподания на "Completed page" не имела большого снижения или повышения. При этом количество заявок за 20-23 мая снизилось сушествено. Вероятно что-то произошло, что по данным нет возможности отследить. При этом конверсия заявок с 65% до 27%. Для этого мы посмотрим этапы завок с каким статутсами они находятся. Начнем с "up_stage"
+В этой таблице мы видим что конверсия значительно снизилась для заявок со статусом "is_completed", но при этом конверсия поподания на "Completed page" не имела большого снижения или повышения. При этом количество заявок за 20-22 мая снизилось сушествено. Вероятно что-то произошло, что по данным нет возможности отследить. При этом конверсия заявок с 65% до 27%. Для этого мы посмотрим этапы завок с каким статутсами они находятся. Начнем с "up_stage" и разделем на is_completed=0 и на is_completed=1
 
+```
+select day_17.up_stage, count_17, count_18,count_19,count_20,count_21,count_22,count_23, count_24, count_25
+from (select up_stage, count(page_status) as count_17 from task2
+where DAY(rep_date)=17 and is_completed=0
+group by up_stage) day_17
+join (select up_stage, count(page_status) as count_18 
+from task2
+where DAY(rep_date)=18  and is_completed=0
+group by up_stage) day_18
+on day_18.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_19 
+from task2
+where DAY(rep_date)=19  and is_completed=0
+group by up_stage) day_19
+on day_19.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_20 
+from task2
+where DAY(rep_date)=20  and is_completed=0
+group by up_stage) day_20
+on day_20.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_21 
+from task2
+where DAY(rep_date)=21  and is_completed=0
+group by up_stage) day_21
+on day_21.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_22
+from task2
+where DAY(rep_date)=22
+group by up_stage) day_22
+on day_22.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_23
+from task2
+where DAY(rep_date)=23  and is_completed=0
+group by up_stage) day_23
+on day_23.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_24
+from task2
+where DAY(rep_date)=24  and is_completed=0
+group by up_stage) day_24
+on day_24.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_25
+from task2
+where DAY(rep_date)=25  and is_completed=0
+group by up_stage) day_25
+on day_25.up_stage=day_17.up_stage
+```
 
+| up_stage | Day 17 | Day 18 | Day 19 | Day 20 | Day 21 | Day 22 | Day 23 | Day 24 | Day 25 |
+| -------- | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
+| KYC Details | 4303 | 4422 | 3366 | 728 | 330 | 539 | 893 | 3640 | 3518 |
+| Personal Details | 1005 | 1056 | 2487 | **10336** | **5179** | **4178** | 1216 | 747 | 748 |
 
+В таблице в которой is_completed=0 мы видим, что 20 мая резко увеличивается количество отказов с этапом "Personal Details" и 21 и 22 держится на высоком уровне. 
+В таблице is_completed=1 нет сильных отличий по распределению этапов.
 
+```
+select day_17.up_stage, count_17, count_18,count_19,count_20,count_21,count_22,count_23, count_24, count_25
+from (select up_stage, count(page_status) as count_17 from task2
+where DAY(rep_date)=17 and is_completed=1
+group by up_stage) day_17
+join (select up_stage, count(page_status) as count_18 
+from task2
+where DAY(rep_date)=18  and is_completed=1
+group by up_stage) day_18
+on day_18.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_19 
+from task2
+where DAY(rep_date)=19  and is_completed=1
+group by up_stage) day_19
+on day_19.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_20 
+from task2
+where DAY(rep_date)=20  and is_completed=1
+group by up_stage) day_20
+on day_20.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_21 
+from task2
+where DAY(rep_date)=21  and is_completed=1
+group by up_stage) day_21
+on day_21.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_22
+from task2
+where DAY(rep_date)=22
+group by up_stage) day_22
+on day_22.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_23
+from task2
+where DAY(rep_date)=23  and is_completed=1
+group by up_stage) day_23
+on day_23.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_24
+from task2
+where DAY(rep_date)=24  and is_completed=1
+group by up_stage) day_24
+on day_24.up_stage=day_17.up_stage
+join (select up_stage, count(page_status) as count_25
+from task2
+where DAY(rep_date)=25  and is_completed=1
+group by up_stage) day_25
+on day_25.up_stage=day_17.up_stage
+```
+
+| up_stage | Day 17 | Day 18 | Day 19 | Day 20 | Day 21 | Day 22 | Day 23 | Day 24 | Day 25 |
+| -------- | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: | :----: |
+| KYC Details | 1211 | 1123 | 1200 | 416 | 222 | 539 | 536 | 1242 | 1331 |
+| Application Summary | 1729 | 1701 | 1324 | 240 | 131 | 171 | 616 | 631 | 493 |
+| e-Nach | 571 | 579 | 499 | 285 | 154 | 125 | 256 | 820 | 733 |
+| e-Sign | 738 | 790 | 566 | 359 | 172 | 138 | 325 | 850 | 695 |
+| Bank Verification | 8603 | 8824 | 7135 | 2759 | 1646 | 1693 | 3617 | 8395 | 7090 |
 
 
