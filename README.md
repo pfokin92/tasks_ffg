@@ -2,6 +2,7 @@
 
 ## Задание №1
 
+Запрос к базе данных для вывода сотрудников у кого в работе менее 3 задач
 ```
 select emp_name, temp.tasks_in_work from employee
 left join (select assignee_id, COUNT(id) as count_t
@@ -11,6 +12,7 @@ cross apply
 (select ISNULL(count_t,0)) temp(tasks_in_work)
 where tasks_in_work<3
 ```
+Результат:
 
 | Employee Name | Tasks in work |
 | ------------- | ------------- |
