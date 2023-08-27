@@ -179,12 +179,13 @@ on day_25.up_stage=day_17.up_stage
 
 **Вывод:** падение конверсии 20-22 связано с тем, что очень много заявок не прошли этап Personal Details.
 
-Полный SQL файл с запросом [SQL-task_2](task_2/task_2_query.sql) 
+Полный SQL файл с запросом [SQL-task_2](task_2/task_2_queries.sql) 
 
 ## Задание №2_2
 
 Задание опубликовано в [Power BI](https://app.powerbi.com/view?r=eyJrIjoiYTY5YTE3ZjctOTEwOS00MGY4LWFmMWQtZGM0MTYxZjU0Mzc1IiwidCI6IjM3ZGNhMjc0LWNkYjMtNDA5ZS1iMTE2LWViNjAyNTM5NmIwMiIsImMiOjl9)
 
+Файл для Power BI можно скачать [Скачать Power BI](task_2/report.pbix)
 
 ## Задание №3_1 Конверсия
 
