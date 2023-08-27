@@ -18,7 +18,7 @@ where tasks_in_work<3
 | ------------- | ------------- |
 | Igor  | 0  |
 
-sql файл [ntcn](task_1/task_1_query.sql) 
+Полный SQL файл с запросом [SQL-task_1](task_1/task_1_query.sql) 
 
 ## Задание №2_1
 
@@ -178,6 +178,8 @@ on day_25.up_stage=day_17.up_stage
 | Bank Verification | 8603 | 8824 | 7135 | 2759 | 1646 | 1693 | 3617 | 8395 | 7090 |
 
 **Вывод:** падение конверсии 20-22 связано с тем, что очень много заявок не прошли этап Personal Details.
+
+Полный SQL файл с запросом [SQL-task_2](task_2/task_2_query.sql) 
 
 ## Задание №2_2
 
