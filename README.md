@@ -18,7 +18,7 @@ where tasks_in_work<3
 | ------------- | ------------- |
 | Igor  | 0  |
 
-sql файл[ntcn](task_1/task_1_query.sql) 
+sql файл [ntcn](task_1/task_1_query.sql) 
 
 ## Задание №2_1
 
